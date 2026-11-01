@@ -540,3 +540,9 @@ html.dark ::selection { background: #31527d; color: #fff; }
 
 @media (max-width: 680px) { .theme-toggle-label { display: none; } .theme-toggle { padding: 0 6px; } .invite-btn { grid-column: 1 / -1; } }
 @media (prefers-reduced-motion: reduce) { .topbar, .sidebar, .main-content, .profile-banner, .network-card, .connection-card, .info-card, .recovery-card, .rail-card { animation: none; } .invite-btn::before, .invite-dot::after, .profile-banner::after { animation: none; } }
+
+.muse-login-control { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.muse-login-control .primary-button:disabled { cursor: wait; opacity: .72; }
+.muse-login-message { max-width: 220px; color: #63758c; font-size: 9px; line-height: 1.4; }
+html.dark .muse-login-message { color: #a3b0c2; }
+@media (max-width: 680px) { .muse-login-control { width: 100%; } .muse-login-message { max-width: none; } }

@@ -23,8 +23,9 @@ import {
   X,
 } from "lucide-react";
 import type { FormEvent, ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import FedOsFooter from "@/components/FedOsFooter";
+import MuseLoginButton from "@/components/MuseLoginButton";
 import SupportPayments from "@/components/SupportPayments";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -92,6 +93,16 @@ export default function Home() {
   const [feedback, setFeedback] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
+
+  const handleMuseSignedIn = useCallback(() => {
+    setConnection("connected");
+    setFeedback("Signed in with Muse. Your connection is active in this browser.");
+  }, []);
+
+  const handleMuseSignedOut = useCallback(() => {
+    setConnection("disconnected");
+    setFeedback("Muse was signed out in this browser.");
+  }, []);
 
   useEffect(() => {
     let token: string | null = null;
@@ -180,6 +191,7 @@ export default function Home() {
   function disconnectThisBrowser() {
     try {
       sessionStorage.removeItem("fedpromptly_access_token");
+      sessionStorage.removeItem("fedcenter_muse_session");
       setConnection("disconnected");
       setFeedback("Muse was disconnected from this browser session. This did not revoke access with Muse or delete either account.");
     } catch {
@@ -282,7 +294,7 @@ export default function Home() {
                     {connection === "error" && <button type="button" className="text-action" onClick={() => setRetryCount((count) => count + 1)}><RefreshCw size={14} /> Try again</button>}
                   </div>
                   <div className="connection-action">
-                    {connection === "connected" ? <button type="button" className="quiet-button" onClick={(event) => openDialog("disconnect", event.currentTarget)}>Disconnect</button> : connection === "checking" ? <span className="checking-label">Please wait</span> : <a className="primary-button" href={LOGIN_URL}>Connect Muse <ArrowRight size={16} /></a>}
+                    {connection === "connected" ? <button type="button" className="quiet-button" onClick={(event) => openDialog("disconnect", event.currentTarget)}>Disconnect</button> : connection === "checking" ? <span className="checking-label">Please wait</span> : <MuseLoginButton onSignedIn={handleMuseSignedIn} onSignedOut={handleMuseSignedOut} />}
                   </div>
                 </article>
               </section>
