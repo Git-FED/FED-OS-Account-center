@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "fedcenter",
+  "name": "fed-os-account-center",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./dist/public",
