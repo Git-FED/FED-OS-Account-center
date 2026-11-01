@@ -545,4 +545,6 @@ html.dark ::selection { background: #31527d; color: #fff; }
 .muse-login-control .primary-button:disabled { cursor: wait; opacity: .72; }
 .muse-login-message { max-width: 220px; color: #63758c; font-size: 9px; line-height: 1.4; }
 html.dark .muse-login-message { color: #a3b0c2; }
+.muse-topbar-button { min-height: 32px; padding: 0 12px; font-size: 10px; }
+.topbar .muse-login-control { flex-wrap: nowrap; }
 @media (max-width: 680px) { .muse-login-control { width: 100%; } .muse-login-message { max-width: none; } }

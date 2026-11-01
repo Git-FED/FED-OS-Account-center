@@ -230,6 +230,7 @@ export default function Home() {
             <span className="theme-toggle-icon">{theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}</span>
             <span className="theme-toggle-label">{theme === "dark" ? "Light" : "Dark"}</span>
           </button>
+          <MuseLoginButton className="primary-button muse-topbar-button" onSignedIn={handleMuseSignedIn} onSignedOut={handleMuseSignedOut} />
           <span className="topbar-divider" aria-hidden="true" />
           <div className="account-chip">
             <span className="mini-avatar"><UserRound size={16} /></span>
@@ -294,7 +295,7 @@ export default function Home() {
                     {connection === "error" && <button type="button" className="text-action" onClick={() => setRetryCount((count) => count + 1)}><RefreshCw size={14} /> Try again</button>}
                   </div>
                   <div className="connection-action">
-                    {connection === "connected" ? <button type="button" className="quiet-button" onClick={(event) => openDialog("disconnect", event.currentTarget)}>Disconnect</button> : connection === "checking" ? <span className="checking-label">Please wait</span> : <MuseLoginButton onSignedIn={handleMuseSignedIn} onSignedOut={handleMuseSignedOut} />}
+                    {connection === "connected" ? <button type="button" className="quiet-button" onClick={(event) => openDialog("disconnect", event.currentTarget)}>Disconnect</button> : connection === "checking" ? <span className="checking-label">Use the sign-in button above</span> : <span className="checking-label">Use the sign-in button above</span>}
                   </div>
                 </article>
               </section>
