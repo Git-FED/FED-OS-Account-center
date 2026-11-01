@@ -12,10 +12,12 @@ import {
   Link2,
   LockKeyhole,
   LogOut,
+  Moon,
   Pencil,
   RefreshCw,
   ShieldCheck,
   Sparkles,
+  Sun,
   UserRound,
   UsersRound,
   X,
@@ -24,6 +26,7 @@ import type { FormEvent, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import FedOsFooter from "@/components/FedOsFooter";
 import SupportPayments from "@/components/SupportPayments";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type ConnectionState = "checking" | "connected" | "disconnected" | "inactive" | "error";
 type DialogKind = "edit" | "disconnect" | "replace" | "backup" | null;
@@ -81,6 +84,7 @@ function SectionHeading({ eyebrow, title, children }: { eyebrow?: string; title:
 }
 
 export default function Home() {
+  const { theme, toggleTheme } = useTheme();
   const [connection, setConnection] = useState<ConnectionState>("disconnected");
   const [retryCount, setRetryCount] = useState(0);
   const [dialog, setDialog] = useState<DialogKind>(null);
@@ -204,6 +208,16 @@ export default function Home() {
         </a>
         <div className="topbar-right">
           <a className="help-link" href="#help"><CircleHelp size={17} /> <span>Help</span></a>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            <span className="theme-toggle-icon">{theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}</span>
+            <span className="theme-toggle-label">{theme === "dark" ? "Light" : "Dark"}</span>
+          </button>
           <span className="topbar-divider" aria-hidden="true" />
           <div className="account-chip">
             <span className="mini-avatar"><UserRound size={16} /></span>
@@ -348,6 +362,11 @@ export default function Home() {
                 <div className="rail-heading"><div className="rail-icon"><Link2 size={18} /></div><h3>One profile, shared</h3></div>
                 <p>Changes to a supported Center profile apply across FedPromptly services. The editing controls here are a preview and don’t save yet.</p>
               </article>
+              <a className="invite-btn" href="https://www.fedpromptly.com/social" target="_blank" rel="noopener">
+                <span className="invite-icon"><BrandMark /><span className="invite-dot" aria-hidden="true" /></span>
+                <span className="invite-label"><span className="invite-name">FedPromptly</span><span className="invite-meta">Open source · AI tools · Publishing</span></span>
+                <span className="invite-arrow" aria-hidden="true"><ArrowRight size={16} /></span>
+              </a>
               <div className="security-note"><BadgeCheck size={16} /><span>Clear choices. No hidden account linking.</span></div>
             </aside>
           </div>

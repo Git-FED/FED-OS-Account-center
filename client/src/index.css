@@ -435,3 +435,108 @@ h1, h2, h3, p { overflow-wrap: anywhere; }
 .community-subsection-heading h3 { margin: 0; color: #42566e; font-size: 11px; font-weight: 750; }
 .community-subsection-heading p { margin: 0; color: #8592a2; font-size: 9px; line-height: 1.5; text-align: right; }
 @media (max-width: 580px) { .community-subsection-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .community-subsection-heading p { text-align: left; } }
+
+
+/* Dark mode, motion, and the FedPromptly social invite button */
+.theme-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 9px; border: 1px solid #dfe6ef; border-radius: 999px; color: #53657b; background: rgba(255,255,255,.7); font-size: 10px; font-weight: 750; cursor: pointer; transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease; }
+.theme-toggle:hover { color: var(--blue); border-color: #b9cce5; background: #f6faff; transform: translateY(-1px); }
+.theme-toggle-icon { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #e08b28; background: #fff4da; }
+.theme-toggle-label { letter-spacing: .1px; }
+
+.invite-btn { position: relative; isolation: isolate; display: flex; align-items: center; gap: 10px; min-width: 0; padding: 9px 11px 9px 8px; border: 1px solid #e2e8ef; border-radius: 14px; background: #fff; box-shadow: 0 6px 18px -9px rgba(22,39,63,.32), inset 0 1px 0 rgba(255,255,255,.8); transition: transform .2s cubic-bezier(.2,.7,.3,1), border-color .2s ease, box-shadow .2s ease; overflow: visible; }
+.invite-btn::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: 16px; background: linear-gradient(120deg, #5865f2, #00b0f4, #eb459e, #5865f2); background-size: 300% 300%; filter: blur(11px); opacity: 0; animation: invite-flow 8s linear infinite; transition: opacity .3s ease; }
+.invite-btn:hover { transform: translateY(-2px); border-color: rgba(88,101,242,.5); box-shadow: 0 13px 28px -10px rgba(22,39,63,.48), 0 0 0 1px rgba(88,101,242,.18); }
+.invite-btn:hover::before, .invite-btn:focus-visible::before { opacity: .48; }
+.invite-btn:active { transform: translateY(0) scale(.985); }
+.invite-icon { position: relative; display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.invite-icon svg { width: 29px; height: 29px; }
+.invite-dot { position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border: 2px solid #fff; border-radius: 50%; background: #57c98a; }
+.invite-dot::after { content: ""; position: absolute; inset: -3px; border: 2px solid #57c98a; border-radius: 50%; animation: invite-ping 2.4s ease-out infinite; }
+.invite-label { display: flex; flex-direction: column; gap: 2px; min-width: 0; line-height: 1.15; text-align: left; }
+.invite-name { color: #26374d; font-size: 11px; font-weight: 800; }
+.invite-meta { overflow: hidden; color: #78879a; font-size: 8px; font-weight: 550; text-overflow: ellipsis; white-space: nowrap; }
+.invite-arrow { display: grid; place-items: center; flex: 0 0 auto; color: #8795a6; transition: color .2s ease, transform .2s ease; }
+.invite-btn:hover .invite-arrow { color: #1769df; transform: translateX(3px); }
+@keyframes invite-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes invite-ping { 0% { transform: scale(.7); opacity: .6; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+
+/* Gentle entrance choreography makes the dashboard feel alive without being distracting. */
+.topbar { animation: rise-in .55s cubic-bezier(.2,.8,.2,1) both; }
+.sidebar { animation: slide-in .65s .08s cubic-bezier(.2,.8,.2,1) both; }
+.main-content { animation: rise-in .65s .1s cubic-bezier(.2,.8,.2,1) both; }
+.profile-banner { animation: rise-in .7s .2s cubic-bezier(.2,.8,.2,1) both; }
+.profile-banner::after { animation: orbit-drift 12s ease-in-out infinite alternate; }
+.network-card, .connection-card, .info-card, .recovery-card, .rail-card { animation: card-in .5s both; }
+.network-card:nth-child(2), .rail-card:nth-child(2) { animation-delay: .06s; }
+.network-card:nth-child(3), .rail-card:nth-child(3) { animation-delay: .12s; }
+.network-card:nth-child(4), .rail-card:nth-child(4) { animation-delay: .18s; }
+@keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slide-in { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes card-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes orbit-drift { from { transform: translate3d(-8px, 3px, 0) rotate(-3deg); } to { transform: translate3d(10px, -7px, 0) rotate(4deg); } }
+
+html.dark { color-scheme: dark; }
+html.dark body, html.dark .private-community-page { background: #171b24; color: #e6ebf3; }
+html.dark .topbar, html.dark .private-community-header { border-color: #2b3444; background: rgba(24,29,39,.9); }
+html.dark .brand-name, html.dark .private-community-brand { color: #eef3fb; }
+html.dark .brand-name span, html.dark .private-community-brand span { color: #93a1b6; }
+html.dark .topbar-right, html.dark .help-link { color: #aab6c8; }
+html.dark .topbar-divider { border-color: #344052; }
+html.dark .theme-toggle { border-color: #3a4659; color: #c5d0df; background: rgba(37,45,58,.82); }
+html.dark .theme-toggle:hover { border-color: #5b78ae; color: #dce9ff; background: #2b3850; }
+html.dark .theme-toggle-icon { color: #ffd36b; background: #493e29; }
+html.dark .mini-avatar { color: #a9c8f4; background: #263a58; }
+html.dark .page-layout { border-color: #2b3444; }
+html.dark .sidebar { border-color: #2b3444; }
+html.dark .sidebar-heading, html.dark .eyebrow, html.dark .breadcrumbs, html.dark .intro-copy, html.dark .section-intro { color: #93a1b6; }
+html.dark .nav-item { color: #aab6c8; }
+html.dark .nav-item svg { color: #8999b0; }
+html.dark .nav-item:hover { color: #b9d5ff; background: #25344d; }
+html.dark .nav-item-active { color: #b9d5ff; background: #233b60; }
+html.dark .nav-item-active svg { color: #78aaff; }
+html.dark .sidebar-rule, html.dark .main-content, html.dark .page-footer { border-color: #2b3444; }
+html.dark .sidebar-help strong, html.dark h1, html.dark h2, html.dark h3, html.dark .section-heading h2 { color: #edf2f9; }
+html.dark .sidebar-help p, html.dark .page-footer, html.dark .page-footer a { color: #8e9caf; }
+html.dark .intro-mark { border-color: #354b6a; background: #243650; box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+html.dark .profile-banner { border-color: #345071; background: linear-gradient(115deg,#203754 0%,#24364e 63%,#203f3c 100%); }
+html.dark .banner-orb { border-color: rgba(220,235,255,.16); background: rgba(30,43,62,.8); }
+html.dark .banner-kicker { color: #9ec8f5; }
+html.dark .banner-copy p, html.dark .banner-seal { color: #a5b5c9; }
+html.dark .banner-seal { border-color: rgba(220,235,255,.14); background: rgba(22,32,47,.55); }
+html.dark .live-feedback { border-color: #2f6353; background: #1e3a31; color: #a8e3ca; }
+html.dark .connection-card, html.dark .info-card, html.dark .network-card, html.dark .recovery-card, html.dark .rail-card, html.dark .support-area, html.dark .private-community-card, html.dark .fedos-footer { border-color: #303b4e; background: #202733; box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+html.dark .service-icon, html.dark .support-option-icon { border-color: #354154; background: #293342; }
+html.dark .muse-icon span, html.dark .connection-title-row h3, html.dark .info-copy h3, html.dark .network-copy h3, html.dark .recovery-copy h3, html.dark .rail-card h3, html.dark .support-section-intro h3 { color: #e7edf6; }
+html.dark .connection-body > p, html.dark .info-copy > p, html.dark .network-copy p, html.dark .recovery-copy > p, html.dark .rail-card > p:not(.eyebrow), html.dark .support-section-intro p { color: #9ba9bc; }
+html.dark .quiet-button, html.dark .provider-link-button { border-color: #3b475a; color: #c3cfdf; background: #283241; }
+html.dark .quiet-button:hover { border-color: #607da8; color: #e3edff; background: #30415b; }
+html.dark .status-checking, html.dark .status-disconnected { border-color: #3c4a5e; background: #293444; color: #aab9cc; }
+html.dark .status-connected { border-color: #2f6955; background: #1e3d32; }
+html.dark .status-inactive { border-color: #715b35; background: #423721; }
+html.dark .status-error { border-color: #704545; background: #432b2d; }
+html.dark .info-icon, html.dark .help-icon, html.dark .rail-icon { color: #a9c7ef; background: #293b56; }
+html.dark .recovery-icon { color: #8cd3c0; background: #22443f; }
+html.dark .social-icon { background: #243e62; }
+html.dark .hub-icon { background: #21433d; }
+html.dark .security-note, html.dark .under-card-note, html.dark .availability-note { color: #96a5b8; }
+html.dark .invite-btn { border-color: #3b475a; background: #252e3b; box-shadow: 0 8px 22px -10px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.04); }
+html.dark .invite-name { color: #edf2fa; }
+html.dark .invite-meta, html.dark .invite-arrow { color: #9ba9bc; }
+html.dark .invite-dot { border-color: #252e3b; }
+html.dark .modal-backdrop { background: rgba(3,7,14,.7); }
+html.dark .dialog-panel { border-color: #3a4658; background: #202733; box-shadow: 0 24px 80px rgba(0,0,0,.45); }
+html.dark .dialog-close { color: #9caabd; background: #2b3544; }
+html.dark .dialog-close:hover { color: #eef4ff; background: #36445a; }
+html.dark .dialog-panel h2 { color: #edf2fa; }
+html.dark .dialog-copy, html.dark .form-disclaimer { color: #a3b0c2; }
+html.dark .edit-form label { color: #c4cfdf; }
+html.dark .edit-form input { border-color: #3d495b; background: #18202c; color: #e5ecf5; }
+html.dark .edit-form input:focus { border-color: #6b9bdc; background: #202b3b; outline-color: #2c4b75; }
+html.dark .dialog-callout { border-color: #354458; background: #263240; color: #b3c0d0; }
+html.dark .fedos-footer-brand, html.dark .fedos-footer-bottom { border-color: #354052; }
+html.dark .fedos-wordmark, html.dark .fedos-footer-group h2 { color: #dce5f1; }
+html.dark .fedos-footer-brand p, html.dark .fedos-footer-group a, html.dark .fedos-footer-bottom { color: #95a3b6; }
+html.dark ::selection { background: #31527d; color: #fff; }
+
+@media (max-width: 680px) { .theme-toggle-label { display: none; } .theme-toggle { padding: 0 6px; } .invite-btn { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: reduce) { .topbar, .sidebar, .main-content, .profile-banner, .network-card, .connection-card, .info-card, .recovery-card, .rail-card { animation: none; } .invite-btn::before, .invite-dot::after, .profile-banner::after { animation: none; } }
